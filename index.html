@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interactive Statement of Work — T3 / Radiant Plumbing Service, LLC.</title>
+<style>
+  :root {
+    --domo-navy: #0b2545;
+    --domo-blue: #1a73e8;
+    --domo-accent: #00b4d8;
+    --domo-teal: #0a9396;
+    --domo-gold: #f4a261;
+    --domo-gray-50: #f7f9fc;
+    --domo-gray-100: #eef2f7;
+    --domo-gray-200: #dbe3ed;
+    --domo-gray-500: #5b6b80;
+    --domo-gray-800: #2c3e50;
+    --domo-green: #2a9d8f;
+    --domo-red: #e63946;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(11, 37, 69, 0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--domo-gray-800);
+    background: var(--domo-gray-50);
+    line-height: 1.55;
+  }
+  header.hero {
+    background: linear-gradient(135deg, var(--domo-navy) 0%, #133b6b 60%, var(--domo-accent) 130%);
+    color: #fff;
+    padding: 38px 48px 34px;
+    box-shadow: var(--shadow);
+  }
+  header.hero .eyebrow {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 12px;
+    opacity: 0.85;
+    margin-bottom: 8px;
+  }
+  header.hero h1 { margin: 0 0 6px; font-size: 30px; font-weight: 700; }
+  header.hero .subtitle { opacity: 0.92; font-size: 15px; max-width: 820px; }
+  header.hero .meta-row {
+    display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px;
+    font-size: 13px;
+  }
+  header.hero .meta-pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    padding: 6px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+  }
+
+  nav.tabs {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; border-bottom: 1px solid var(--domo-gray-200);
+    padding: 0 48px;
+    display: flex; flex-wrap: wrap; gap: 4px;
+    box-shadow: 0 1px 0 rgba(11,37,69,0.04);
+  }
+  nav.tabs button {
+    background: none; border: none; cursor: pointer;
+    padding: 14px 16px; font-size: 13.5px; font-weight: 600;
+    color: var(--domo-gray-500);
+    border-bottom: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  nav.tabs button:hover { color: var(--domo-navy); }
+  nav.tabs button.active {
+    color: var(--domo-navy);
+    border-bottom-color: var(--domo-blue);
+  }
+
+  main { padding: 32px 48px 64px; max-width: 1280px; margin: 0 auto; }
+  .tab-panel { display: none; animation: fade 0.2s ease; }
+  .tab-panel.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  h2 {
+    font-size: 22px; color: var(--domo-navy); margin: 0 0 6px;
+    border-left: 4px solid var(--domo-blue); padding-left: 12px;
+  }
+  h3 { font-size: 17px; color: var(--domo-navy); margin: 20px 0 10px; }
+  h4 { font-size: 14px; color: var(--domo-gray-800); margin: 12px 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  p { margin: 8px 0 14px; }
+
+  .card {
+    background: #fff; border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 22px 26px; margin-bottom: 20px;
+    border: 1px solid var(--domo-gray-200);
+  }
+  .card.compact { padding: 16px 20px; }
+  .card-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .kpi {
+    background: linear-gradient(135deg, #fff, var(--domo-gray-100));
+    border-left: 4px solid var(--domo-blue);
+    padding: 14px 18px; border-radius: 8px;
+  }
+  .kpi .label { font-size: 11.5px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--domo-gray-500); }
+  .kpi .value { font-size: 22px; font-weight: 700; color: var(--domo-navy); margin-top: 4px; }
+  .kpi .sub { font-size: 12.5px; color: var(--domo-gray-500); margin-top: 2px; }
+
+  details.accordion {
+    background: #fff; border: 1px solid var(--domo-gray-200);
+    border-radius: 8px; margin-bottom: 10px;
+    overflow: hidden;
+  }
+  details.accordion > summary {
+    cursor: pointer; padding: 14px 18px; font-weight: 600;
+    list-style: none; display: flex; justify-content: space-between; align-items: center;
+    color: var(--domo-navy);
+    background: var(--domo-gray-50);
+  }
+  details.accordion > summary::-webkit-details-marker { display: none; }
+  details.accordion > summary::after {
+    content: "+"; font-size: 20px; color: var(--domo-blue); transition: transform 0.2s;
+  }
+  details.accordion[open] > summary::after { content: "−"; }
+  details.accordion > div.body { padding: 16px 20px; border-top: 1px solid var(--domo-gray-200); }
+
+  table.loe {
+    width: 100%; border-collapse: collapse; margin: 10px 0 4px;
+    font-size: 13.5px;
+  }
+  table.loe th {
+    background: var(--domo-navy); color: #fff; font-weight: 600;
+    text-align: left; padding: 10px 12px;
+  }
+  table.loe th.num, table.loe td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.loe td {
+    padding: 10px 12px; border-bottom: 1px solid var(--domo-gray-200);
+    vertical-align: top;
+  }
+  table.loe tr:last-child td { border-bottom: none; }
+  table.loe tr:hover td { background: var(--domo-gray-50); }
+  table.loe tfoot td {
+    background: var(--domo-gray-100); font-weight: 700; color: var(--domo-navy);
+    border-top: 2px solid var(--domo-navy);
+  }
+
+  .phase-tag {
+    display: inline-block; padding: 3px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .tag-p1 { background: #d1ecf1; color: #0c5460; }
+  .tag-p2 { background: #fce4b3; color: #8a6011; }
+  .tag-p3 { background: #e2d9f3; color: #4a277a; }
+  .tag-optional { background: #f1f3f5; color: #5b6b80; }
+
+  ul.clean { margin: 6px 0 14px; padding-left: 18px; }
+  ul.clean li { margin: 4px 0; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+  .callout {
+    border-left: 4px solid var(--domo-accent);
+    background: #eaf7fb; padding: 14px 18px;
+    border-radius: 6px; margin: 14px 0;
+    font-size: 14px;
+  }
+  .callout.ai {
+    border-left-color: var(--domo-teal);
+    background: #e6f4f1;
+  }
+  .callout.warn {
+    border-left-color: var(--domo-gold);
+    background: #fff4e6;
+  }
+  .callout strong { color: var(--domo-navy); }
+
+  .role-list {
+    display: grid; gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+  .role-list .role {
+    background: var(--domo-gray-50); border: 1px solid var(--domo-gray-200);
+    border-radius: 8px; padding: 10px 14px; font-size: 13px;
+  }
+  .role .r-name { font-weight: 700; color: var(--domo-navy); }
+  .role .r-sub { color: var(--domo-gray-500); font-size: 12px; }
+
+  .timeline {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 6px; margin: 14px 0 20px;
+    font-size: 12px;
+  }
+  .timeline .bar {
+    padding: 10px 8px; border-radius: 6px; text-align: center;
+    background: var(--domo-gray-100); color: var(--domo-gray-800);
+    font-weight: 600; border: 1px solid var(--domo-gray-200);
+  }
+  .timeline .bar.active { background: var(--domo-blue); color: #fff; border-color: var(--domo-blue); }
+  .timeline .bar.p2 { background: #fdecc8; border-color: #f2c779; }
+  .timeline .bar.p3 { background: #e2d9f3; border-color: #c8b8e0; }
+
+  .cost-toggle { margin: 8px 0 16px; }
+  .cost-toggle label { font-size: 13px; color: var(--domo-gray-500); margin-right: 8px; }
+  .cost-toggle input {
+    width: 110px; padding: 5px 8px; border: 1px solid var(--domo-gray-200);
+    border-radius: 5px; font-size: 13px;
+  }
+  .cost-summary {
+    margin-top: 12px; padding: 12px 16px;
+    background: var(--domo-gray-100); border-radius: 8px;
+    font-size: 14px; color: var(--domo-navy);
+  }
+  .cost-summary strong { color: var(--domo-blue); font-size: 17px; }
+
+  footer {
+    text-align: center; padding: 24px;
+    color: var(--domo-gray-500); font-size: 12px;
+    border-top: 1px solid var(--domo-gray-200);
+  }
+
+  .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 11px; font-weight: 600;
+    background: var(--domo-gray-100); color: var(--domo-gray-800);
+    margin-right: 4px;
+  }
+  .pill.ai { background: #e6f4f1; color: #0a9396; }
+  .pill.auto { background: #eaf7fb; color: #0c7c94; }
+
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  .dot.p1 { background: #17a2b8; }
+  .dot.p2 { background: #d99d3a; }
+  .dot.p3 { background: #6f42c1; }
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Domo Professional Services — Interactive Statement of Work</div>
+  <h1>T3 / Radiant Plumbing Service, LLC. — Budgeting &amp; Forecasting Platform</h1>
+  <div class="subtitle">
+    Replacing an Excel + Velixo + Sage Intacct workflow with an automated, Domo-native
+    budgeting, forecasting, and financial reporting platform powered by Service Titan operational KPIs
+    and Sage Intacct financial data.
+  </div>
+  <div class="meta-row">
+    <div class="meta-pill"><strong>Client:</strong> Radiant Plumbing Service, Incorporated (T3)</div>
+    <div class="meta-pill"><strong>Prepared by:</strong> Mark Lees, Director — Domo Consulting</div>
+    <div class="meta-pill"><strong>Date:</strong> April 16, 2026</div>
+    <div class="meta-pill"><strong>Target Go-Live (Phase 1):</strong> End of July 2026</div>
+    <div class="meta-pill"><strong>SOW Version:</strong> v1.0 — Draft</div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="overview" class="active">Executive Summary</button>
+  <button data-tab="current">Current State</button>
+  <button data-tab="future">Future State</button>
+  <button data-tab="scope">Scope &amp; Phases</button>
+  <button data-tab="loe">LOE &amp; Hour Estimates</button>
+  <button data-tab="timeline">Timeline</button>
+  <button data-tab="team">Team &amp; Roles</button>
+  <button data-tab="assumptions">Assumptions &amp; Risks</button>
+  <button data-tab="investment">Investment</button>
+</nav>
+
+<main>
+
+<!-- ============================ EXECUTIVE SUMMARY ============================ -->
+<section id="overview" class="tab-panel active">
+  <h2>Executive Summary</h2>
+  <div class="card">
+    <p>
+      Radiant Plumbing Service (T3) operates a multi-branch, multi-business-unit P&amp;L process today
+      managed through a ~30–35 tab Excel workbook. Financial data is pulled via the Velixo plugin
+      from Sage Intacct; operational KPIs originate in Service Titan and already land in Domo, but are
+      then <em>manually</em> exported, manipulated in Excel, and re-uploaded. The result is a slow,
+      error-prone, and brittle budgeting &amp; forecasting cycle that demands heavy manual effort
+      from the Finance team and the CIO.
+    </p>
+    <p>
+      Domo will deliver a production-grade, automated budgeting and forecasting platform that
+      replaces the Excel workbook's core mechanics — revenue build, direct labor model,
+      COGS/OpEx calculations, branch consolidation, and executive-ready outputs — with integrated
+      pipelines, governed inputs, and scenario-ready visualizations. Finance retains full
+      ownership of the forecasting process with faster, more defensible numbers.
+    </p>
+    <div class="card-grid" style="margin-top:14px;">
+      <div class="kpi"><div class="label">Phase 1 Total LOE</div><div class="value">712 hrs</div><div class="sub">Budgeting Tool MVP — delivered by Jul 31, 2026</div></div>
+      <div class="kpi"><div class="label">Phase 2 Total LOE</div><div class="value">248 hrs</div><div class="sub">Monthly financial pack &amp; GM dashboards</div></div>
+      <div class="kpi"><div class="label">Phase 3 (Optional)</div><div class="value">176 hrs</div><div class="sub">Advanced scenario planning &amp; board output automation</div></div>
+      <div class="kpi"><div class="label">Target Go-Live</div><div class="value">Jul 2026</div><div class="sub">Aligned to FY forecasting cadence</div></div>
+    </div>
+  </div>
+
+  <div class="callout ai">
+    <strong>AI-Accelerated Delivery.</strong> Level of effort has been right-sized to reflect that
+    Domo consultants leverage AI assistants (Domo.AI, Claude, and code-generation tools) across
+    ETL authoring, Beast Mode &amp; SQL generation, card and dashboard scaffolding, QA script
+    creation, test-data synthesis, and SOW/documentation drafting. Hours below assume a
+    conservative 20–30% productivity uplift from AI-assisted delivery relative to traditional
+    manual consulting baselines.
+  </div>
+
+  <div class="card">
+    <h3>Primary Business Outcomes</h3>
+    <ul class="clean">
+      <li><strong>Eliminate manual upload/download cycles</strong> between Domo, Excel, and Sage — freeing the CIO and Finance from plumbing tasks.</li>
+      <li><strong>Compress the 3+9 forecast cycle time</strong> by 40–60% through automated data refreshes, parameterized inputs, and one-click consolidation.</li>
+      <li><strong>Increase forecast accuracy</strong> with direct access to live Service Titan operational KPIs (calls, conversion, average sale) and governed Sage Intacct actuals.</li>
+      <li><strong>Enable scenario planning at the branch × business-unit level</strong> for HVAC, Plumbing, and related service departments.</li>
+      <li><strong>Create a single source of truth</strong> for monthly P&amp;L review, board decks, and GM performance conversations.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ CURRENT STATE ============================ -->
+<section id="current" class="tab-panel">
+  <h2>Current State Assessment</h2>
+
+  <div class="card">
+    <h3>Process Overview</h3>
+    <p>
+      The current 3+9 Forecast and Annual Budget are authored in a single master Excel workbook
+      comprising approximately 30–35 tabs organized around a branch / location / department
+      hierarchy. Consolidation is performed right-to-left across tabs into a <em>Cons</em> roll-up.
+    </p>
+    <div class="two-col">
+      <div>
+        <h4>Data Sources In Use Today</h4>
+        <ul class="clean">
+          <li><strong>Sage Intacct (GL Details)</strong> — partially in Domo; Department, Location, and Chart of Accounts hierarchies not yet mapped.</li>
+          <li><strong>Sage Intacct via Velixo plugin</strong> — pulls actuals into Excel tab-by-tab.</li>
+          <li><strong>Service Titan via Domo connector</strong> — automated, reliable; all revenue-build KPIs available.</li>
+          <li><strong>Manual inputs</strong> — Marketing %, HR/IT overheads, inflation factors, GM assumptions.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Key Pain Points Identified</h4>
+        <ul class="clean">
+          <li>Excel formula corruption during the live walkthrough — symptomatic of model fragility.</li>
+          <li>Manual export/upload of Domo KPIs into Excel and back into Domo.</li>
+          <li>No self-service for branch GMs — reports are distributed as static Excel files.</li>
+          <li>Sage Intacct is the publishing target for the finished budget — no governed round-trip today.</li>
+          <li>Monthly performance pack and board deck rely on downstream copy/paste.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Model Architecture — Key Components</h3>
+    <details class="accordion" open>
+      <summary>Revenue Build (per branch × business unit)</summary>
+      <div class="body">
+        Driven by <strong>Total Calls Ran</strong>, flowing through cancellation rate →
+        demand/maintenance split → conversion (kick-up) rate → average sale → gross sales
+        → discount → net revenue. Color-coded input cells are the only GM-editable drivers.
+        Variants exist for HVAC Install/Service, Plumbing (main line vs. branch line), and related units.
+      </div>
+    </details>
+    <details class="accordion">
+      <summary>Direct Labor Model</summary>
+      <div class="body">
+        Separate Excel file; maps each employee to COGS or OpEx. Feeds both department tabs and the Admin tab.
+        Identified as second-highest priority for scope discovery before build.
+      </div>
+    </details>
+    <details class="accordion">
+      <summary>COGS — Inventory &amp; Consumables</summary>
+      <div class="body">
+        Driven by % of revenue using prior-year benchmarks with tunable overrides for cost-savings
+        initiatives or expected operational changes.
+      </div>
+    </details>
+    <details class="accordion">
+      <summary>OpEx Categories</summary>
+      <div class="body">
+        A blend of (a) % of net revenue (marketing, warehouse supplies, vehicles),
+        (b) prior-year plus inflation (tax/audit, contracts), and
+        (c) stakeholder-provided build files (IT from CIO; HR/uniforms/recruiting from VP HR).
+      </div>
+    </details>
+    <details class="accordion">
+      <summary>Admin &amp; PE Add-Backs</summary>
+      <div class="body">
+        Centralized on T3 Admin tab; budgeted on prior-year baseline plus planned initiatives.
+      </div>
+    </details>
+    <details class="accordion">
+      <summary>Consolidation &amp; Output</summary>
+      <div class="body">
+        Right-to-left roll-up into Cons tab → uploaded back to Sage Intacct. GM copies distributed
+        as static Excel tabs by branch. Executives review via Sage P&amp;L reports and downstream monthly packs.
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============================ FUTURE STATE ============================ -->
+<section id="future" class="tab-panel">
+  <h2>Future State Architecture</h2>
+
+  <div class="card">
+    <p>
+      Domo becomes the system of record for the budgeting &amp; forecasting workflow.
+      Inputs are captured through governed Domo apps; calculations run deterministically in
+      Magic ETL / Beast Mode; outputs feed both back into Sage Intacct and into
+      executive / GM-facing dashboards.
+    </p>
+    <h3>Solution Pillars</h3>
+    <div class="card-grid">
+      <div class="card compact">
+        <h4>1. Governed Data Foundation</h4>
+        <p>Extend existing Sage integration (GL Details) with Chart of Accounts, Departments, and
+        Locations. Certify Service Titan pipelines already in Domo. Historical backfill to Jan 2024.</p>
+      </div>
+      <div class="card compact">
+        <h4>2. Input Capture App</h4>
+        <p>Domo custom app with role-based inputs: GM call/conversion/ASP assumptions, Finance overrides,
+        VP HR/IT inputs, marketing %. Replaces color-coded Excel cells with governed forms.</p>
+      </div>
+      <div class="card compact">
+        <h4>3. Calculation Engine</h4>
+        <p>Magic ETL + SQL dataflows replicating revenue build, labor model, COGS %, OpEx logic,
+        and consolidation — versioned, auditable, scenario-ready.</p>
+      </div>
+      <div class="card compact">
+        <h4>4. Output &amp; Distribution</h4>
+        <p>Structured export for Sage Intacct upload, GM-facing branch dashboards (Phase 2),
+        monthly financial performance pack (Phase 2), board deck data automation (Phase 3).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Design principle.</strong> All Excel-embedded formulas and lookup logic will be
+    replicated in Domo dataflows — <em>not</em> by preserving Excel as a calculation layer.
+    Velixo may be retained temporarily as a parallel-run validation tool, but is not assumed
+    to be part of the final solution.
+  </div>
+
+  <div class="card">
+    <h3>Reference Data Flow</h3>
+    <ul class="clean">
+      <li><strong>Sage Intacct</strong> → Domo (GL Details + COA + Departments + Locations) → Semantic P&amp;L model</li>
+      <li><strong>Service Titan</strong> → Domo (existing, automated) → Revenue build inputs</li>
+      <li><strong>Labor data</strong> (Payroll system / Excel) → Domo → Direct labor model</li>
+      <li><strong>Input App</strong> (GM, Finance, VP HR, CIO) → Writeback dataset → Calculation engine</li>
+      <li><strong>Calculation engine</strong> → Budget/Forecast output dataset → (a) Sage upload file, (b) Domo dashboards</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ SCOPE & PHASES ============================ -->
+<section id="scope" class="tab-panel">
+  <h2>Scope &amp; Phased Delivery</h2>
+
+  <div class="card">
+    <h3>Phase 1 <span class="phase-tag tag-p1">In Scope — MVP</span></h3>
+    <p>Automated Budgeting &amp; Forecasting Tool in Domo, delivered by <strong>end of July 2026</strong>.</p>
+    <ul class="clean">
+      <li>Expand Sage Intacct integration to include Chart of Accounts, Departments, and Locations alongside existing GL Details.</li>
+      <li>Historical data backfill: Sage actuals &amp; Service Titan KPIs from January 1, 2024 forward.</li>
+      <li>Replicate revenue build (calls → conversion → ASP → net revenue) by branch × business unit.</li>
+      <li>Replicate direct labor model with employee-level allocation to COGS vs. OpEx.</li>
+      <li>Replicate COGS % of revenue and OpEx logic (% of revenue, prior-year + inflation, stakeholder inputs).</li>
+      <li>Branch → Consolidated roll-up logic and variance vs. prior year.</li>
+      <li>Governed Input App for GM, Finance, VP HR, and CIO contributions.</li>
+      <li>Structured export file ready for upload into Sage Intacct as the published budget.</li>
+      <li>Admin UI for Finance: scenario create/clone, lock/unlock, snapshot.</li>
+      <li>UAT, user training for Finance (Greg, Kelly, Mike), and hypercare through first forecast cycle.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Phase 2 <span class="phase-tag tag-p2">Recommended — Next</span></h3>
+    <p>Monthly Financial Pack &amp; GM Performance Dashboards.</p>
+    <ul class="clean">
+      <li>Domo-native monthly financial performance pack (replacing the Kelly-built Excel version).</li>
+      <li>Branch-level GM dashboards: budget vs. actual, YoY bridges, call-volume drivers, revenue waterfalls.</li>
+      <li>Drill-through from consolidated P&amp;L to branch / department / account.</li>
+      <li>Alerting on material variance thresholds.</li>
+      <li>GM self-service for ad-hoc review (replaces the static Excel tab distribution).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Phase 3 (Optional) <span class="phase-tag tag-p3">Expansion</span></h3>
+    <p>Advanced Planning &amp; Executive Automation.</p>
+    <ul class="clean">
+      <li>Scenario planning UI (best / base / worst) with side-by-side compare.</li>
+      <li>Driver-based what-if modeling (call volume, conversion, wage inflation).</li>
+      <li>Automated board deck data feeds — waterfall, consolidated P&amp;L, YoY comparisons.</li>
+      <li>Commentary capture tied to variance thresholds for management discussion &amp; analysis.</li>
+      <li>AI-generated variance narratives using Domo.AI on monthly actuals.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Out of Scope <span class="phase-tag tag-optional">Excluded</span></h3>
+    <ul class="clean">
+      <li>Replacement of Sage Intacct as the system of record for the published budget.</li>
+      <li>Replacement of the Service Titan source system.</li>
+      <li>Custom Sage Intacct API work beyond the existing Domo connector scope.</li>
+      <li>Payroll system integration beyond the labor model feed (can be added in a change request).</li>
+      <li>Velixo plugin removal / Excel decommissioning (client-led decision post parallel-run).</li>
+      <li>Data governance or security policy authoring beyond standard Domo role configuration.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ LOE ============================ -->
+<section id="loe" class="tab-panel">
+  <h2>Level of Effort — Detailed Hour Estimates</h2>
+  <div class="callout ai">
+    <strong>AI-Accelerated Delivery Factor.</strong> Hours below assume a 20–30% productivity uplift
+    from AI-assisted consulting. Specifically:
+    <ul class="clean" style="margin-top:4px;">
+      <li><span class="pill ai">AI</span> Magic ETL and SQL dataflow scaffolding generated from schema + business rules.</li>
+      <li><span class="pill ai">AI</span> Beast Mode formula generation and translation from Excel cell logic.</li>
+      <li><span class="pill ai">AI</span> Card/dashboard design acceleration via templates and AI layout.</li>
+      <li><span class="pill ai">AI</span> Automated generation of UAT test cases and data-validation scripts.</li>
+      <li><span class="pill ai">AI</span> Documentation, training materials, and runbook drafting.</li>
+    </ul>
+    Traditional baselines for comparable engagements range 880–1,060 hrs for Phase 1; the AI-accelerated
+    Phase 1 estimate below is <strong>712 hrs</strong>.
+  </div>
+
+  <div class="card">
+    <h3>Phase 1 — Automated Budgeting &amp; Forecasting Tool (MVP)</h3>
+    <table class="loe">
+      <thead>
+        <tr>
+          <th style="width:22%;">Workstream</th>
+          <th>Activities</th>
+          <th class="num" style="width:9%;">Hours</th>
+          <th style="width:16%;">AI Acceleration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1.1 Project Management</strong></td>
+          <td>Status cadence, risk &amp; issue log, change control, stakeholder alignment, PM tooling.</td>
+          <td class="num">56</td>
+          <td><span class="pill ai">AI</span> Status summaries</td>
+        </tr>
+        <tr>
+          <td><strong>1.2 Discovery &amp; Design</strong></td>
+          <td>Labor model deep-dive session, finalize hierarchy mapping, data dictionary, solution design document, technical architecture.</td>
+          <td class="num">48</td>
+          <td><span class="pill ai">AI</span> Doc drafts &amp; diagrams</td>
+        </tr>
+        <tr>
+          <td><strong>1.3 Sage Intacct Integration Extension</strong></td>
+          <td>Extend beyond GL Details to include Chart of Accounts, Departments, Locations. Validate mappings, reconcile hierarchies, build certified datasets.</td>
+          <td class="num">64</td>
+          <td><span class="pill ai">AI</span> Schema mapping &amp; ETL</td>
+        </tr>
+        <tr>
+          <td><strong>1.4 Service Titan Certification &amp; Backfill</strong></td>
+          <td>Validate existing automated connectors &amp; ETL; historical backfill to Jan 2024; KPI coverage confirmation for revenue build.</td>
+          <td class="num">24</td>
+          <td><span class="pill auto">AUTO</span> Native connectors</td>
+        </tr>
+        <tr>
+          <td><strong>1.5 Semantic Data Model</strong></td>
+          <td>Unified P&amp;L model (branch × department × account × period), conformed dimensions, historical snapshots, version-aware budget &amp; forecast datasets.</td>
+          <td class="num">72</td>
+          <td><span class="pill ai">AI</span> Dataflow scaffolding</td>
+        </tr>
+        <tr>
+          <td><strong>1.6 Revenue Build Engine</strong></td>
+          <td>Replicate calls → conversion → demand/maintenance → ASP → gross → discount → net revenue for all branches &amp; business units (HVAC Install, HVAC Service, Plumbing, etc.).</td>
+          <td class="num">88</td>
+          <td><span class="pill ai">AI</span> Formula translation</td>
+        </tr>
+        <tr>
+          <td><strong>1.7 Direct Labor Model</strong></td>
+          <td>Employee-level load, allocation rules to COGS vs. OpEx, branch &amp; department aggregation, wage inflation logic.</td>
+          <td class="num">64</td>
+          <td><span class="pill ai">AI</span> Rule extraction</td>
+        </tr>
+        <tr>
+          <td><strong>1.8 COGS &amp; OpEx Calculation Logic</strong></td>
+          <td>% of revenue engines (consumables, vehicles, marketing, warehouse), PY+inflation logic (tax/audit/contracts), stakeholder input logic (IT, HR/uniforms/recruiting), PE add-backs.</td>
+          <td class="num">56</td>
+          <td><span class="pill ai">AI</span> Beast Mode gen</td>
+        </tr>
+        <tr>
+          <td><strong>1.9 Consolidation &amp; Roll-up</strong></td>
+          <td>Department → Branch → Consolidated logic; prior-year comparatives; variance columns; reconcile to current Cons tab.</td>
+          <td class="num">40</td>
+          <td><span class="pill ai">AI</span> SQL assist</td>
+        </tr>
+        <tr>
+          <td><strong>1.10 Input Capture App</strong></td>
+          <td>Custom Domo app: GM assumptions (calls, kick-up, ASP), Finance overrides, VP HR/IT inputs, marketing %. Role-based access, writeback, audit log.</td>
+          <td class="num">72</td>
+          <td><span class="pill ai">AI</span> App scaffolding</td>
+        </tr>
+        <tr>
+          <td><strong>1.11 Scenario &amp; Snapshot Admin</strong></td>
+          <td>Finance-facing controls: create/clone scenarios, lock/unlock, take snapshots, label budget vs. forecast vs. what-if.</td>
+          <td class="num">28</td>
+          <td><span class="pill ai">AI</span> UI generation</td>
+        </tr>
+        <tr>
+          <td><strong>1.12 Sage Intacct Upload Output</strong></td>
+          <td>Structured export dataset + downloadable file formatted to Sage's existing budget upload schema.</td>
+          <td class="num">24</td>
+          <td><span class="pill ai">AI</span> Template formatting</td>
+        </tr>
+        <tr>
+          <td><strong>1.13 Testing &amp; UAT</strong></td>
+          <td>Tie-out to current Excel model; parallel-run validation for one forecast cycle; UAT script authoring; defect triage &amp; remediation.</td>
+          <td class="num">48</td>
+          <td><span class="pill ai">AI</span> Test case gen</td>
+        </tr>
+        <tr>
+          <td><strong>1.14 Training &amp; Enablement</strong></td>
+          <td>Finance power-user training (Greg, Kelly), CIO enablement (Mike), admin runbook, recorded walkthroughs.</td>
+          <td class="num">20</td>
+          <td><span class="pill ai">AI</span> Collateral drafting</td>
+        </tr>
+        <tr>
+          <td><strong>1.15 Hypercare</strong></td>
+          <td>Two weeks of hypercare through first forecast cycle; daily office hours &amp; rapid response.</td>
+          <td class="num">8</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="2">Phase 1 Total</td><td class="num">712</td><td></td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Phase 2 — Monthly Financial Pack &amp; GM Dashboards</h3>
+    <table class="loe">
+      <thead>
+        <tr>
+          <th style="width:22%;">Workstream</th>
+          <th>Activities</th>
+          <th class="num" style="width:9%;">Hours</th>
+          <th style="width:16%;">AI Acceleration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>2.1 Project Management</strong></td><td>Status cadence, change control, stakeholder alignment.</td><td class="num">24</td><td><span class="pill ai">AI</span></td></tr>
+        <tr><td><strong>2.2 Design &amp; Wireframes</strong></td><td>Financial pack layout, GM dashboard wireframes, KPI catalog, drill path design.</td><td class="num">28</td><td><span class="pill ai">AI</span></td></tr>
+        <tr><td><strong>2.3 Monthly Financial Pack</strong></td><td>Replicate Excel pack in Domo: consolidated P&amp;L, YTD bridges, budget vs. actual, variance commentary, PY comparatives.</td><td class="num">56</td><td><span class="pill ai">AI</span> Card generation</td></tr>
+        <tr><td><strong>2.4 GM Branch Dashboards</strong></td><td>Branch-level dashboards with call-volume drivers, revenue waterfalls, budget vs. actual, KPI trendlines; role-scoped PDP.</td><td class="num">64</td><td><span class="pill ai">AI</span> Templates</td></tr>
+        <tr><td><strong>2.5 Alerting &amp; Subscriptions</strong></td><td>Variance-threshold alerts, scheduled delivery of dashboards to GMs.</td><td class="num">16</td><td>—</td></tr>
+        <tr><td><strong>2.6 Drill-through Enablement</strong></td><td>Consolidated → Branch → Department → Account drill-through on live actuals.</td><td class="num">24</td><td><span class="pill ai">AI</span></td></tr>
+        <tr><td><strong>2.7 Testing &amp; UAT</strong></td><td>Tie-out to existing Kelly-built monthly pack; GM pilot &amp; feedback cycle.</td><td class="num">24</td><td><span class="pill ai">AI</span> Test gen</td></tr>
+        <tr><td><strong>2.8 Training &amp; Rollout</strong></td><td>GM enablement sessions by region; ELT/Finance walk-through; adoption playbook.</td><td class="num">12</td><td><span class="pill ai">AI</span></td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Phase 2 Total</td><td class="num">248</td><td></td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Phase 3 (Optional) — Advanced Planning &amp; Executive Automation</h3>
+    <table class="loe">
+      <thead>
+        <tr>
+          <th style="width:22%;">Workstream</th>
+          <th>Activities</th>
+          <th class="num" style="width:9%;">Hours</th>
+          <th style="width:16%;">AI Acceleration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>3.1 Project Management</strong></td><td>Status cadence, change control.</td><td class="num">16</td><td><span class="pill ai">AI</span></td></tr>
+        <tr><td><strong>3.2 Scenario Planning UI</strong></td><td>Best/base/worst scenarios, side-by-side compare, scenario meta-data and governance.</td><td class="num">48</td><td><span class="pill ai">AI</span> App scaffolding</td></tr>
+        <tr><td><strong>3.3 Driver-based What-If</strong></td><td>Real-time sliders for call volume, conversion, ASP, wage inflation; propagation through calc engine.</td><td class="num">40</td><td><span class="pill ai">AI</span> Formula gen</td></tr>
+        <tr><td><strong>3.4 Board Deck Data Automation</strong></td><td>Automated data feeds for waterfalls, consolidated P&amp;L, YoY; export-ready slide data blocks.</td><td class="num">32</td><td><span class="pill ai">AI</span> Layout gen</td></tr>
+        <tr><td><strong>3.5 Domo.AI Variance Narratives</strong></td><td>AI-generated commentary on monthly variances against budget; captured for MD&amp;A workflow.</td><td class="num">24</td><td><span class="pill ai">AI</span> Core feature</td></tr>
+        <tr><td><strong>3.6 Testing, Training &amp; Rollout</strong></td><td>Executive pilot, feedback cycle, enablement.</td><td class="num">16</td><td><span class="pill ai">AI</span></td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Phase 3 Total</td><td class="num">176</td><td></td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>All Phases — Summary</h3>
+    <table class="loe">
+      <thead>
+        <tr><th>Phase</th><th>Description</th><th class="num">Hours</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="dot p1"></span>Phase 1</td><td>Automated Budgeting &amp; Forecasting Tool (MVP)</td><td class="num">712</td></tr>
+        <tr><td><span class="dot p2"></span>Phase 2</td><td>Monthly Financial Pack &amp; GM Dashboards</td><td class="num">248</td></tr>
+        <tr><td><span class="dot p3"></span>Phase 3</td><td>Advanced Planning &amp; Executive Automation (Optional)</td><td class="num">176</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Total (Phases 1–3)</td><td class="num">1,136</td></tr></tfoot>
+    </table>
+  </div>
+</section>
+
+<!-- ============================ TIMELINE ============================ -->
+<section id="timeline" class="tab-panel">
+  <h2>Delivery Timeline</h2>
+  <div class="card">
+    <h3>Phase 1 — MVP Delivery (Apr 27 – Jul 31, 2026, ~14 weeks)</h3>
+    <div class="timeline">
+      <div class="bar active">W1–W2<br/>Discovery &amp; Design</div>
+      <div class="bar active">W3–W5<br/>Data Integration</div>
+      <div class="bar active">W4–W8<br/>Calc Engine</div>
+      <div class="bar active">W6–W10<br/>Input App</div>
+      <div class="bar active">W10–W12<br/>UAT &amp; Parallel</div>
+      <div class="bar active">W13–W14<br/>Training &amp; Go-Live</div>
+    </div>
+    <h3>Phase 2 — Financial Pack &amp; GM Dashboards (Aug – Oct 2026, ~8 weeks)</h3>
+    <div class="timeline">
+      <div class="bar p2">W1–W2<br/>Design</div>
+      <div class="bar p2">W3–W5<br/>Pack Build</div>
+      <div class="bar p2">W3–W6<br/>GM Dashboards</div>
+      <div class="bar p2">W6–W7<br/>UAT</div>
+      <div class="bar p2">W8<br/>Training</div>
+      <div class="bar p2">W8<br/>Rollout</div>
+    </div>
+    <h3>Phase 3 (Optional) — Advanced Planning (Nov 2026 – Jan 2027, ~8 weeks)</h3>
+    <div class="timeline">
+      <div class="bar p3">W1<br/>Design</div>
+      <div class="bar p3">W2–W4<br/>Scenario UI</div>
+      <div class="bar p3">W4–W6<br/>Board Deck Automation</div>
+      <div class="bar p3">W5–W6<br/>Domo.AI Narratives</div>
+      <div class="bar p3">W7<br/>UAT</div>
+      <div class="bar p3">W8<br/>Rollout</div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <strong>Critical path.</strong> Phase 1 hinges on expanded Sage Intacct integration
+    (Chart of Accounts, Departments, Locations) landing by end of Week 5. A targeted kickoff within
+    two weeks of SOW execution is required to meet the end-of-July go-live target.
+  </div>
+</section>
+
+<!-- ============================ TEAM ============================ -->
+<section id="team" class="tab-panel">
+  <h2>Team &amp; Roles</h2>
+  <div class="card">
+    <h3>Domo Delivery Team</h3>
+    <div class="role-list">
+      <div class="role"><div class="r-name">Principal Consultant / Solution Architect</div><div class="r-sub">Kristine Friday — solution ownership, design authority, QA</div></div>
+      <div class="role"><div class="r-name">Consulting Manager</div><div class="r-sub">Vishakha Shenoy — engagement oversight, escalation</div></div>
+      <div class="role"><div class="r-name">Director, Consulting</div><div class="r-sub">Mark Lees — scoping, account alignment, executive sponsor</div></div>
+      <div class="role"><div class="r-name">Senior Data Engineer</div><div class="r-sub">ETL, Beast Mode, integration build</div></div>
+      <div class="role"><div class="r-name">App Developer</div><div class="r-sub">Custom Domo app for input capture &amp; scenario admin</div></div>
+      <div class="role"><div class="r-name">QA / UAT Lead</div><div class="r-sub">Test authoring, parallel-run validation</div></div>
+      <div class="role"><div class="r-name">Project Manager</div><div class="r-sub">Cadence, risk &amp; issue log, change control</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Client Team — Radiant Plumbing (T3)</h3>
+    <div class="role-list">
+      <div class="role"><div class="r-name">Mike McDonald, CIO</div><div class="r-sub">Executive sponsor, data access, Service Titan &amp; Sage alignment</div></div>
+      <div class="role"><div class="r-name">Greg Phillips, Finance</div><div class="r-sub">Business lead, subject-matter owner, UAT</div></div>
+      <div class="role"><div class="r-name">Kelly Rendak, Finance</div><div class="r-sub">Model support, monthly pack SME, UAT</div></div>
+      <div class="role"><div class="r-name">VP of HR &amp; CIO</div><div class="r-sub">Input contributors for HR/IT line items</div></div>
+      <div class="role"><div class="r-name">GM Cohort (Branch)</div><div class="r-sub">Input contributors (calls, kick-up, ASP assumptions)</div></div>
+      <div class="role"><div class="r-name">Eric Smith, Domo AE</div><div class="r-sub">Account lead, commercial interface</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ASSUMPTIONS ============================ -->
+<section id="assumptions" class="tab-panel">
+  <h2>Assumptions, Dependencies &amp; Risks</h2>
+  <div class="card">
+    <h3>Key Assumptions</h3>
+    <ul class="clean">
+      <li>The existing Domo Service Titan connector is functioning reliably and covers all KPIs used in the current revenue build, as confirmed in the Additional Q&amp;A.</li>
+      <li>Sage Intacct exposes Chart of Accounts, Departments, and Locations through the existing Domo Sage connector; no custom middleware is required.</li>
+      <li>Historical data from January 2024 forward is retrievable from both Sage Intacct and Service Titan.</li>
+      <li>Velixo remains available as a parallel-run reference during UAT but is not in scope to replace or integrate with directly.</li>
+      <li>Labor model source data (payroll extracts or existing Excel) is provided in a consumable format by Week 2.</li>
+      <li>Client makes timely decisions on design tradeoffs within five business days.</li>
+      <li>Consultants leverage AI tools (Domo.AI, Claude, code-gen assistants) throughout the engagement; AI-accelerated hours assume consistent availability.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Client Dependencies</h3>
+    <ul class="clean">
+      <li>Timely provision of Sage Intacct credentials with read access to COA, Departments, Locations.</li>
+      <li>Timely provision of labor model source data and stakeholder input files (HR, IT, Marketing).</li>
+      <li>Named business approver for each design decision and UAT sign-off.</li>
+      <li>GM and VP input during scoping workshops as required.</li>
+      <li>Test environment availability in Sage Intacct for budget upload validation (or acceptance of production upload for final go-live).</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Risks &amp; Mitigation</h3>
+    <table class="loe">
+      <thead><tr><th style="width:26%;">Risk</th><th>Impact</th><th style="width:34%;">Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td>Sage hierarchy data quality</td><td>Delays semantic model build; consolidation logic cannot be validated.</td><td>Sage readiness review in Week 1; remediation backlog owned jointly.</td></tr>
+        <tr><td>Labor model opacity</td><td>Rework if business rules are discovered late.</td><td>Dedicated Week 2 workshop on the labor model; document before build.</td></tr>
+        <tr><td>Scope creep into Phase 2/3 items</td><td>Risks Jul 2026 go-live.</td><td>Formal change control; Phase 2 backlog captured for post-MVP.</td></tr>
+        <tr><td>Stakeholder input delays (GMs, VP HR, CIO)</td><td>Input app cannot be fully tested.</td><td>Early outreach by Finance; sample data authored by consulting team for UAT.</td></tr>
+        <tr><td>Sage upload format changes</td><td>Output file rejected by Sage.</td><td>Sage schema captured in Week 3 and validated with a test upload.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================ INVESTMENT ============================ -->
+<section id="investment" class="tab-panel">
+  <h2>Investment Summary</h2>
+  <div class="card">
+    <p>
+      The table below reflects the AI-accelerated LOE for each phase. Consulting services are billed
+      at a blended professional services rate. Adjust the rate below to model total investment.
+    </p>
+    <div class="cost-toggle">
+      <label for="rate">Blended Rate ($/hr):</label>
+      <input id="rate" type="number" value="250" step="5" min="100" max="500" />
+      <span style="color:var(--domo-gray-500); font-size:12px; margin-left:8px;">Adjust to reflect your negotiated rate. Default $250/hr is illustrative.</span>
+    </div>
+
+    <table class="loe">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Scope</th>
+          <th class="num">Hours</th>
+          <th class="num">Investment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="phase-tag tag-p1">Phase 1</span></td>
+          <td>Automated Budgeting &amp; Forecasting Tool (MVP)</td>
+          <td class="num" data-hrs="712">712</td>
+          <td class="num" data-hrs="712">—</td>
+        </tr>
+        <tr>
+          <td><span class="phase-tag tag-p2">Phase 2</span></td>
+          <td>Monthly Financial Pack &amp; GM Dashboards</td>
+          <td class="num" data-hrs="248">248</td>
+          <td class="num" data-hrs="248">—</td>
+        </tr>
+        <tr>
+          <td><span class="phase-tag tag-p3">Phase 3</span></td>
+          <td>Advanced Planning &amp; Executive Automation (Optional)</td>
+          <td class="num" data-hrs="176">176</td>
+          <td class="num" data-hrs="176">—</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">Total — Phases 1–3</td>
+          <td class="num" id="total-hrs">1,136</td>
+          <td class="num" id="total-cost">—</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="cost-summary" id="cost-summary">
+      At <strong id="rate-display">$250/hr</strong>: Phase 1 <strong id="p1-cost">$178,000</strong> · Phase 2 <strong id="p2-cost">$62,000</strong> · Phase 3 <strong id="p3-cost">$44,000</strong> · <strong>Total $284,000</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Acceptance &amp; Next Steps</h3>
+    <ul class="clean">
+      <li><strong>Follow-up discovery call</strong> to walk through the direct labor model and confirm Sage hierarchy readiness.</li>
+      <li><strong>SOW refinement &amp; execution</strong> within two weeks of this draft to hold the end-of-July 2026 go-live.</li>
+      <li><strong>Kickoff</strong> targeted within five business days of SOW execution.</li>
+      <li><strong>Phase 1 acceptance criteria:</strong> parallel-run tie-out to existing Excel model within a defined tolerance; successful budget upload into Sage Intacct; Finance team trained and actively authoring in the tool.</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <strong>Ready to proceed?</strong> Eric Smith and Mark Lees will schedule the labor-model
+    workshop and circulate a finalized SOW for countersignature within five business days of
+    client feedback on this draft.
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Domo Professional Services · Interactive Statement of Work · T3 / Radiant Plumbing Service, LLC. · Draft v1.0 · April 16, 2026
+</footer>
+
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll('nav.tabs button');
+  const panels = document.querySelectorAll('.tab-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+
+  // Cost calculator
+  const rateInput = document.getElementById('rate');
+  const rateDisplay = document.getElementById('rate-display');
+  const totalHrsEl = document.getElementById('total-hrs');
+  const totalCostEl = document.getElementById('total-cost');
+  const p1 = 712, p2 = 248, p3 = 176;
+  const fmt = n => '$' + Math.round(n).toLocaleString();
+  function recalc() {
+    const r = parseFloat(rateInput.value) || 0;
+    rateDisplay.textContent = '$' + r + '/hr';
+    document.getElementById('p1-cost').textContent = fmt(p1 * r);
+    document.getElementById('p2-cost').textContent = fmt(p2 * r);
+    document.getElementById('p3-cost').textContent = fmt(p3 * r);
+    const total = (p1 + p2 + p3) * r;
+    document.getElementById('cost-summary').lastElementChild.previousSibling;
+    // Update the summary line
+    const summary = document.getElementById('cost-summary');
+    summary.innerHTML = 'At <strong id="rate-display">$' + r + '/hr</strong>: '
+      + 'Phase 1 <strong>' + fmt(p1*r) + '</strong> · '
+      + 'Phase 2 <strong>' + fmt(p2*r) + '</strong> · '
+      + 'Phase 3 <strong>' + fmt(p3*r) + '</strong> · '
+      + '<strong>Total ' + fmt(total) + '</strong>';
+    // Update table costs
+    document.querySelectorAll('td[data-hrs]').forEach(td => {
+      if (td.classList.contains('num') && td.textContent.includes('—') || td.textContent.startsWith('$')) {
+        const hrs = parseInt(td.dataset.hrs, 10);
+        td.textContent = fmt(hrs * r);
+      }
+    });
+    totalCostEl.textContent = fmt((p1+p2+p3)*r);
+  }
+  rateInput.addEventListener('input', recalc);
+  // Initialize cost cells on load
+  document.querySelectorAll('td[data-hrs]').forEach((td, i) => {
+    if (i % 2 === 1) { // cost cells (second one per row)
+      const hrs = parseInt(td.dataset.hrs, 10);
+      const r = parseFloat(rateInput.value) || 0;
+      td.textContent = fmt(hrs * r);
+    }
+  });
+  recalc();
+</script>
+
+</body>
+</html>
